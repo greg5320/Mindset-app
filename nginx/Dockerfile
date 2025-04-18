@@ -1,7 +1,8 @@
 FROM nginx:1.25-alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
 
 RUN echo '--- Копия /etc/nginx/nginx.conf (первые 5 строк) ---' \
     && sed -n '1,5p' /etc/nginx/nginx.conf
