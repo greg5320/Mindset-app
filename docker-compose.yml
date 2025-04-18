@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - mindset-network
+    restart: unless-stopped
+    volumes:
+      - nginx_logs:/var/log/nginx
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+      - BACKEND_URL=/api
+    restart: unless-stopped
+    networks:
+      - mindset-network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    expose:
+      - "8000"
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/mindset_db
+    restart: unless-stopped
+    networks:
+      - mindset-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mindset_db
+    ports:
+      - "5432:5432"
+    networks:
+      - mindset-network
+    restart: unless-stopped
+
+networks:
+  mindset-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  nginx_logs:

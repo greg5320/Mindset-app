@@ -1,0 +1,44 @@
+.license {
+    padding: 80px 92px;
+    background-color: white;
+  }
+  
+  .license__container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  
+  .license__title {
+    font-size: 48px;
+    font-weight: 500;
+    text-align: center;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .license__title{
+        font-size: 28px;
+    }
+  }
+
+  @media (max-width: 480px){
+    .license__title{
+        font-size: 18px;
+    }
+  }
+
+  @media (max-width: 768px) and (min-width: 481px) {
+    .license {
+      padding: 40px 16px;
+    }
+  
+    .license__container {
+      max-width: 100%;
+    }
+  
+    .license__title {
+      font-size: 32px;
+    }
+  }
+  
+  
