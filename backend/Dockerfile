@@ -33,4 +33,4 @@ USER appuser
 
 EXPOSE 8000
 
-CMD ["rust_mindset_backend"]
+CMD ["cargo", "run"]
