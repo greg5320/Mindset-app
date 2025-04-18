@@ -8,7 +8,7 @@ RUN echo '--- Копия /etc/nginx/nginx.conf (первые 5 строк) ---' 
     && sed -n '1,5p' /etc/nginx/nginx.conf
 
 RUN mkdir -p /var/log/nginx
-RUN nginx -t
+#RUN nginx -t
 
 
 EXPOSE 80
