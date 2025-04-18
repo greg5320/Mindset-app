@@ -15,6 +15,8 @@ services:
     restart: unless-stopped
     volumes:
       - nginx_logs:/var/log/nginx
+    security_opt:
+      - no-new-privileges:true
 
   frontend:
     build:
@@ -25,11 +27,14 @@ services:
     environment:
       - NODE_ENV=production
       - BACKEND_URL=/api
+      - SERVER_IP=89.169.1.129
     restart: unless-stopped
     networks:
       - mindset-network
     depends_on:
       - backend
+    security_opt:
+      - no-new-privileges:true
 
   backend:
     build:
@@ -39,11 +44,14 @@ services:
       - "8000"
     environment:
       - DATABASE_URL=postgres://postgres:password@db:5432/mindset_db
+      - SERVER_IP=89.169.1.129
     restart: unless-stopped
     networks:
       - mindset-network
     depends_on:
       - db
+    security_opt:
+      - no-new-privileges:true
 
   db:
     image: postgres:16-alpine
@@ -53,11 +61,15 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
       - POSTGRES_DB=mindset_db
-    ports:
-      - "5432:5432"
+    # Не открываем порт базы данных наружу в продакшене
+    # Закомментируйте следующие строки для продакшена
+    # ports:
+    #   - "5432:5432"
     networks:
       - mindset-network
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
 
 networks:
   mindset-network:
