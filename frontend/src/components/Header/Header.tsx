@@ -77,8 +77,8 @@ const Header = () => {
             <a href="/" className="header__logo">
               <div className="logo__inner">
                 <picture>
-                  <source media="(max-width: 768px)" srcSet="mindsetLogoBig.png" />
-                  <img src="mindsetLogoSmall.png" alt="Logo" />
+                  <source media="(max-width: 768px)" srcSet="http://localhost:9000/mindset/mindsetLogoBig.png" />
+                  <img src="http://localhost:9000/mindset/mindsetLogoSmall.png" alt="Logo" />
                 </picture>
               </div>
             </a>
@@ -135,7 +135,7 @@ const Header = () => {
         </button>
         <div className="mobile-menu__content">
           <div className="mobile-menu__logo">
-            <img src="mindsetLogoBig.png" alt="Mindset Logo" />
+            <img src="http://localhost:9000/mindset/mindsetLogoBig.png" alt="Mindset Logo" />
           </div>
           <nav className="mobile-menu__nav">
             <a href="/#courses" onClick={closeMenu}>
