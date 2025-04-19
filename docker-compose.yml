@@ -17,13 +17,6 @@ services:
       - nginx_logs:/var/log/nginx
     security_opt:
       - no-new-privileges:true
-    # Добавляем healthcheck для Nginx
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/nginx-status"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
 
   frontend:
     build:
@@ -38,15 +31,10 @@ services:
     restart: unless-stopped
     networks:
       - mindset-network
+    depends_on:
+      - backend
     security_opt:
       - no-new-privileges:true
-    # Добавляем healthcheck для фронтенда
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
 
   backend:
     build:
@@ -65,13 +53,7 @@ services:
       - db
     security_opt:
       - no-new-privileges:true
-    # Добавляем healthcheck для бэкенда
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+    command: sh -c "ls -la /usr/local/bin && /usr/local/bin/rust_mindset_backend"
 
   db:
     image: postgres:16-alpine
@@ -81,18 +63,15 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
       - POSTGRES_DB=mindset_db
+    # Не открываем порт базы данных наружу в продакшене
+    # Закомментируйте следующие строки для продакшена
+    # ports:
+    #   - "5432:5432"
     networks:
       - mindset-network
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-    # Добавляем healthcheck для базы данных
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
 
 networks:
   mindset-network:
