@@ -20,14 +20,16 @@ RUN mkdir src \
 COPY . .
 RUN cargo build --release
 
-# Stage 2: reuse builder as the runtime image to avoid extra pulls
+# Stage 2: use builder as runtime and install the binary into PATH
 FROM builder as runtime
 
-# Create non-root user
 USER root
-RUN useradd -m appuser
-USER appuser
+# Create non-root user and install binary
+RUN useradd -m appuser \
+  && install -Dm755 /app/target/release/rust_mindset_backend /usr/local/bin/rust_mindset_backend
 
-# Expose the application port and start the binary
+USER appuser
+WORKDIR /home/appuser
+
 EXPOSE 8000
 CMD ["rust_mindset_backend"]
