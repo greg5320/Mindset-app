@@ -1,7 +1,10 @@
 FROM nginx:1.25-alpine
 
+# Устанавливаем необходимые инструменты для отладки
+RUN apk add --no-cache curl iputils bash
+
 # Удаляем стандартную конфигурацию
-RUN rm /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/conf.d/default.conf
 
 # Копируем нашу конфигурацию
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
@@ -9,8 +12,8 @@ COPY nginx/nginx.conf /etc/nginx/nginx.conf
 # Создаем директории для логов
 RUN mkdir -p /var/log/nginx
 
-# Проверяем конфигурацию (закомментировано, чтобы не блокировать сборку)
-# RUN nginx -t
+# Создаем тестовую страницу
+RUN echo "Nginx is working!" > /usr/share/nginx/html/index.html
 
 EXPOSE 80
 
