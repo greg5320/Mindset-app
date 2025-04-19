@@ -88,11 +88,10 @@ services:
       - no-new-privileges:true
     # Добавляем healthcheck для базы данных
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 10s
 
 networks:
   mindset-network:
