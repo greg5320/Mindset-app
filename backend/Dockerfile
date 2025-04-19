@@ -42,7 +42,7 @@ COPY --from=builder /app/migrations /app/migrations
 COPY --from=builder /usr/local/cargo/bin/sqlx /usr/local/bin/sqlx
 
 # Copy DB wait script
-COPY backend/wait-for-db.sh /usr/local/bin/wait-for-db.sh
+COPY wait-for-db.sh /usr/local/bin/wait-for-db.sh
 RUN chmod +x /usr/local/bin/wait-for-db.sh
 
 # Create non-root user
