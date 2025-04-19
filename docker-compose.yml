@@ -51,13 +51,13 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.test
+      dockerfile: Dockerfile
     expose:
       - "8000"
-    # environment:
-      # - DATABASE_URL=postgres://postgres:password@db:5432/mindset_db
-      # - SERVER_IP=89.169.1.129
-      # - RUST_BACKTRACE=1
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/mindset_db
+      - SERVER_IP=89.169.1.129
+      - RUST_BACKTRACE=1
     restart: unless-stopped
     networks:
       - mindset-network
