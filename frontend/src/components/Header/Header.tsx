@@ -135,7 +135,7 @@ const Header = () => {
         </button>
         <div className="mobile-menu__content">
           <div className="mobile-menu__logo">
-            <img src="mindset/mindsetLogoBig.png" alt="Mindset Logo" />
+            <img src="mindsetLogoBig.png" alt="Mindset Logo" />
           </div>
           <nav className="mobile-menu__nav">
             <a href="/#courses" onClick={closeMenu}>
