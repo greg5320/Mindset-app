@@ -7,8 +7,7 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
-# Copy project files
+# Copy project files and migrations
 COPY Cargo.toml Cargo.lock ./
 COPY migrations ./migrations
 
@@ -21,24 +20,23 @@ RUN mkdir src \
   && cargo build --release \
   && rm -rf src
 
-# Copy source and build release
+# Copy real source and build release
 COPY . .
 RUN cargo build --release
 
-# Stage 2: runtime image
+# Stage 2: runtime image with tools for healthcheck
 FROM rust:1.86-slim as runtime
 
-# Install runtime dependencies, PostgreSQL client and SQLx CLI
 RUN apt-get update && apt-get install -y \
     libssl-dev \
     ca-certificates \
     postgresql-client \
+    netcat-openbsd \
   && rm -rf /var/lib/apt/lists/*
 
-# Copy the compiled binary and migrations
+# Copy compiled binary, migrations, and SQLx CLI
 COPY --from=builder /app/target/release/rust_mindset_backend /usr/local/bin/rust_mindset_backend
 COPY --from=builder /app/migrations /app/migrations
-# Copy SQLx CLI for running migrations
 COPY --from=builder /usr/local/cargo/bin/sqlx /usr/local/bin/sqlx
 
 # Copy DB wait script

@@ -1,52 +1,21 @@
 version: '3.8'
-
 services:
-  nginx:
-    build:
-      context: .
-      dockerfile: ./nginx/Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - frontend
-      - backend
-    networks:
-      - mindset-network
-    restart: unless-stopped
-    volumes:
-      - nginx_logs:/var/log/nginx
-    security_opt:
-      - no-new-privileges:true
-    # Добавляем healthcheck для Nginx
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/nginx-status"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    expose:
-      - "3000"
+  db:
+    image: postgres:16-alpine
     environment:
-      - NODE_ENV=production
-      - BACKEND_URL=/api
-      - SERVER_IP=89.169.1.129
-    restart: unless-stopped
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mindset_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - mindset-network
-    security_opt:
-      - no-new-privileges:true
-    # Добавляем healthcheck для фронтенда
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
@@ -55,43 +24,49 @@ services:
     expose:
       - "8000"
     environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/mindset_db
-      - SERVER_IP=89.169.1.129
-      - RUST_BACKTRACE=1
-    restart: unless-stopped
-    networks:
-      - mindset-network
+      DATABASE_URL: postgres://postgres:password@db:5432/mindset_db
     depends_on:
-      - db
-    security_opt:
-      - no-new-privileges:true
-    # Добавляем healthcheck для бэкенда
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-
-  db:
-    image: postgres:16-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=mindset_db
+      db:
+        condition: service_healthy
     networks:
       - mindset-network
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    # Добавляем healthcheck для базы данных
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "nc -z localhost 8000"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      BACKEND_URL: /api
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - mindset-network
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      frontend:
+        condition: service_started
+      backend:
+        condition: service_healthy
+    networks:
+      - mindset-network
+    restart: unless-stopped
 
 networks:
   mindset-network:
