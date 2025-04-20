@@ -46,9 +46,6 @@ services:
     environment:
       NODE_ENV: production
       BACKEND_URL: /api
-    depends_on:
-      backend:
-        condition: service_healthy
     networks:
       - mindset-network
     restart: unless-stopped
@@ -60,8 +57,6 @@ services:
     ports:
       - "80:80"
     depends_on:
-      frontend:
-        condition: service_started
       backend:
         condition: service_healthy
     networks:
