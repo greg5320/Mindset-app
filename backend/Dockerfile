@@ -9,12 +9,15 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Cache dependencies
-COPY Cargo.toml Cargo.lock ./
-RUN cargo fetch --locked
-
 # Copy source and migrations
 COPY . .
+# Build release binary (also caches dependencies)
+RUN cargo build --release
+
+# Install sqlx-cli for runtime migrations
+RUN cargo install sqlx-cli --no-default-features --features postgres
+
+# Stage 2: runtime image
 
 # Build release binary
 RUN cargo build --release

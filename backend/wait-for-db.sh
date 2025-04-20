@@ -1,14 +1,14 @@
 #!/bin/sh
-# Wait for PostgreSQL to be ready
-until pg_isready -h db -U "$POSTGRES_USER"; do
+# Wait for PostgreSQL to become available
+until pg_isready -h db -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
   echo "Waiting for database..."
   sleep 2
 done
 
 # Run SQLx migrations
-echo "Running database migrations..."
-export DATABASE_URL
-sqlx migrate run --source /app/migrations
+ echo "Running migrations..."
+ export DATABASE_URL
+ sqlx migrate run --source /app/migrations
 
-# Start the application
+# Execute the application
 exec "$@"
