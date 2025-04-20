@@ -22,7 +22,7 @@ pub struct Students1 {
     pub age: Option<i32>,
     pub grade: Option<i32>,
     pub phone_number: String,
-    pub rating: Option<i32>,
+    pub rating: i32,
 }
 
 #[derive(Deserialize)]
@@ -33,7 +33,6 @@ pub struct CreateStudentBody {
     pub age: Option<i32>,
     pub grade: Option<i32>,
     pub phone_number: String,
-    pub rating: Option<i32>,
 }
 #[derive(Deserialize)]
 pub struct UpdateStudentBody {

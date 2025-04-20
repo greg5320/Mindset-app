@@ -53,8 +53,8 @@ pub async fn create_student(
 ) -> impl Responder {
     let student = body.into_inner();
     match sqlx::query_as::<_, Students1>(
-        "INSERT INTO students (first_name, last_name, patronymic, age, grade, phone_number, rating)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)
+        "INSERT INTO students (first_name, last_name, patronymic, age, grade, phone_number)
+         VALUES ($1, $2, $3, $4, $5, $6)
           RETURNING id, first_name, last_name, patronymic, age, grade, phone_number, rating",
     )
     .bind(student.first_name)
@@ -63,7 +63,6 @@ pub async fn create_student(
     .bind(student.age)
     .bind(student.grade)
     .bind(student.phone_number)
-    .bind(student.rating)
     .fetch_one(&state.db)
     .await
     {
