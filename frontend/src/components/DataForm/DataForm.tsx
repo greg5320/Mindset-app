@@ -57,7 +57,7 @@ const DataForm: FC<DataFormProps> = ({ id }) => {
     try {
       const rawPhoneNumber = formData.phone_number.replace(/\D/g, "") 
   
-      const response = await axios.post("/api/clients", {
+      const response = await axios.post("/api/students", {
         last_name: formData.last_name,
         first_name: formData.first_name,
         patronymic: formData.patronymic,

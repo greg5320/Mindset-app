@@ -18,7 +18,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Обновляем next.config.ts для работы с Nginx
-RUN sed -i 's|http://localhost:8000/api/clients/|/api/clients|g' next.config.ts
+RUN sed -i 's|/api/clients|/api/students|g' next.config.ts
 
 # Сборка приложения без проверки линтера
 RUN npm run build -- --no-lint

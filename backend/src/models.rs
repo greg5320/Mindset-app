@@ -13,6 +13,18 @@ pub struct Students {
     pub rating: i32,
 }
 
+#[derive(Serialize, FromRow, Debug, Clone)]
+pub struct Students1 {
+    pub id: i32,
+    pub first_name: String,
+    pub last_name: String,
+    pub patronymic: String,
+    pub age: Option<i32>,
+    pub grade: Option<i32>,
+    pub phone_number: String,
+    pub rating: Option<i32>,
+}
+
 #[derive(Deserialize)]
 pub struct CreateStudentBody {
     pub first_name: String,

@@ -6,7 +6,7 @@ use actix_web::{get, web::Data, HttpResponse, Responder};
 use crate::models::{
     Courses, CreateCourseBody, CreateGroupBody, CreateStudentBody,
      CreateStudentGroupBody, GroupWithStudentIds, Groups, GroupsWithStudents,
-      IncrementStudentRatingBody, StudentGroups, StudentRating, Students, UpdateStudentBody
+      IncrementStudentRatingBody, StudentGroups, StudentRating, Students, UpdateStudentBody, Students1
 };
 use crate::AppState;
 #[get("/api/hello")]
@@ -52,7 +52,7 @@ pub async fn create_student(
     body: Json<CreateStudentBody>,
 ) -> impl Responder {
     let student = body.into_inner();
-    match sqlx::query_as::<_, Students>(
+    match sqlx::query_as::<_, Students1>(
         "INSERT INTO students (first_name, last_name, patronymic, age, grade, phone_number, rating)
          VALUES ($1, $2, $3, $4, $5, $6, $7)
           RETURNING id, first_name, last_name, patronymic, age, grade, phone_number, rating",
