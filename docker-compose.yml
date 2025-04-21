@@ -64,13 +64,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
-      - "443:443"
+      # - "443:443"
     depends_on:
       - backend
       - frontend
     volumes:
-      - ./letsencrypt:/etc/letsencrypt
-      - ./letsencrypt:/var/www/certbot
+      # - ./letsencrypt:/var/www/certbot
       - ./certbot/www:/var/www/certbot
       - ./nginx_logs:/var/log/nginx
     healthcheck:
