@@ -63,6 +63,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - backend
       - frontend
@@ -73,6 +74,9 @@ services:
       retries: 3
     networks:
       - mindset-network
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
     restart: unless-stopped
 
 networks:
