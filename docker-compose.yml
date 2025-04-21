@@ -9,7 +9,8 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mindset_db
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data       # <-- именованный том
+      - ./db-init:/docker-entrypoint-initdb.d
     networks:
       - mindset-network
     restart: unless-stopped
