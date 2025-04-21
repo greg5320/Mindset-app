@@ -2,26 +2,30 @@ version: '3.8'
 services:
   db:
     image: postgres:16-alpine
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_USER:     postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB:       mindset_db
+      POSTGRES_DB: mindset_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data       # именованный том
-      - ./db-init:/docker-entrypoint-initdb.d        # миграции при инициализации
+      - postgres_data:/var/lib/postgresql/data       # <-- именованный том
+      - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - mindset-network
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - mindset-network
-    restart: unless-stopped
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    expose:
+      - "8000"
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/mindset_db
     depends_on:
@@ -40,12 +44,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    expose:
+      - "3000"
     environment:
-      NODE_ENV:    production
+      NODE_ENV: production
       BACKEND_URL: /api
-    depends_on:
-      backend:
-        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "nc -z localhost 3000"]
       interval: 10s
@@ -63,13 +66,8 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      backend:
-        condition: service_healthy
-      frontend:
-        condition: service_healthy
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - backend
+      - frontend
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost/ || exit 1"]
       interval: 30s
@@ -77,6 +75,9 @@ services:
       retries: 3
     networks:
       - mindset-network
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
     restart: unless-stopped
 
 networks:
@@ -85,3 +86,4 @@ networks:
 
 volumes:
   postgres_data:
+  nginx_logs:
