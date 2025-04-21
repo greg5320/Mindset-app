@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   db:
     image: postgres:16-alpine
@@ -18,17 +19,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./letsencrypt:/etc/letsencrypt
-      - ./letsencrypt‑logs:/var/log/letsencrypt
-    entrypoint: >
-      sh -c "certbot certonly
-             --webroot -w /var/www/certbot
-             -d schoolmindset.ru -d www.schoolmindset.ru
-             --email Greg5320123@gmail.com --agree-tos --no-eff-email"
 
   backend:
     build:
@@ -74,9 +64,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - backend
       - frontend
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ./nginx_logs:/var/log/nginx
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost/ || exit 1"]
       interval: 30s
@@ -85,6 +80,32 @@ services:
     networks:
       - mindset-network
     restart: unless-stopped
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ./letsencrypt-logs:/var/log/letsencrypt
+    entrypoint: >
+      sh -c "certbot certonly
+             --webroot -w /var/www/certbot
+             -d schoolmindset.ru -d www.schoolmindset.ru
+             --email Greg5320123@gmail.com
+             --agree-tos
+             --no-eff-email
+             --force-renewal"
+
+  certbot-renew:
+    image: certbot/certbot
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: >
+      sh -c "trap exit TERM; while :; do
+               certbot renew --webroot -w /var/www/certbot && nginx -s reload;
+               sleep 12h;
+             done"
 
 networks:
   mindset-network:
