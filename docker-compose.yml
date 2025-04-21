@@ -19,6 +19,17 @@ services:
       timeout: 5s
       retries: 5
 
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt
+      - ./letsencrypt‑logs:/var/log/letsencrypt
+    entrypoint: >
+      sh -c "certbot certonly
+             --webroot -w /var/www/certbot
+             -d schoolmindset.ru -d www.schoolmindset.ru
+             --email Greg5320123@gmail.com --agree-tos --no-eff-email"
+
   backend:
     build:
       context: ./backend

@@ -95,7 +95,7 @@
   
   .header__cta {
     padding: 12px 24px;
-    background-color: var(--orange-primary);
+    background-color: #F58F2A;
     color: white;
     font-weight: 500;
     border-radius: 8px;
@@ -106,7 +106,7 @@
   }
   
   .header__cta:hover {
-    background-color: var(--orange-hover);
+    background-color: #e8bb8e;
   }
   
   .header__menu-button {
