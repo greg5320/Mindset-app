@@ -70,6 +70,7 @@ services:
       - frontend
     volumes:
       - ./letsencrypt:/etc/letsencrypt
+      - ./letsencrypt:/var/www/certbot
       - ./certbot/www:/var/www/certbot
       - ./nginx_logs:/var/log/nginx
     healthcheck:
