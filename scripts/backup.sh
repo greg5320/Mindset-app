@@ -1,26 +1,38 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Настройки
-BACKUP_DIR="./backups"
-DATE=$(date +%Y-%m-%d_%H-%M-%S)
-POSTGRES_CONTAINER="mindset-app_db_1"
-DB_NAME="mindset_db"
-DB_USER="postgres"
+# Куда сохранять дампы
+BACKUP_DIR=/root/Mindset-app/db_backups
+mkdir -p "$BACKUP_DIR"
 
-# Создаем директорию для резервных копий, если она не существует
-mkdir -p $BACKUP_DIR
+# Имя вашего docker-compose сервиса для БД:
+DB_CONTAINER="mindset-app_db_1"
 
-# Резервное копирование базы данных
-echo "Создаем резервную копию базы данных..."
-docker exec $POSTGRES_CONTAINER pg_dump -U $DB_USER $DB_NAME > "$BACKUP_DIR/db_backup_$DATE.sql"
+# Учётка и БД внутри контейнера
+PG_USER=postgres
+DB_NAME=mindset_db
 
-# Сжимаем резервную копию
-gzip "$BACKUP_DIR/db_backup_$DATE.sql"
+# Формируем имя файла
+TIMESTAMP=$(date +'%Y%m%d%H%M%S')
+DUMP_FILE="$BACKUP_DIR/${DB_NAME}_${TIMESTAMP}.sql"
 
-echo "Резервное копирование завершено: $BACKUP_DIR/db_backup_$DATE.sql.gz"
+echo "[$(date)] Starting backup of $DB_NAME to $DUMP_FILE"
 
-# Удаляем старые резервные копии (оставляем только последние 7)
-echo "Удаляем старые резервные копии..."
-ls -tp $BACKUP_DIR/db_backup_*.sql.gz | grep -v '/$' | tail -n +8 | xargs -I {} rm -- {}
+# 1) Дампим базу наружу
+docker exec -i "$DB_CONTAINER" \
+  pg_dump -U "$PG_USER" "$DB_NAME" > "$DUMP_FILE"
 
-echo "Готово!"
+# 2) Удаляем и создаём БД заново
+docker exec "$DB_CONTAINER" \
+  psql -U "$PG_USER" -c "DROP DATABASE IF EXISTS $DB_NAME;"
+docker exec "$DB_CONTAINER" \
+  psql -U "$PG_USER" -c "CREATE DATABASE $DB_NAME;"
+
+# 3) Восстанавливаем из дампа
+docker exec -i "$DB_CONTAINER" \
+  psql -U "$PG_USER" "$DB_NAME" < "$DUMP_FILE"
+
+echo "[$(date)] Restore complete. Removing dump file $DUMP_FILE"
+
+# 4) Удаляем только что созданный дамп
+rm -f "$DUMP_FILE"
