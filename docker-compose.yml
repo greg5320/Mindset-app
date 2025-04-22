@@ -2,14 +2,14 @@ version: '3.8'
 services:
   db:
     image: postgres:16-alpine
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mindset_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data       # <-- именованный том
+      - postgres_data:/var/lib/postgresql/data       
       - ./db-init:/docker-entrypoint-initdb.d
     networks:
       - mindset-network
