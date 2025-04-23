@@ -26,17 +26,17 @@ interface FooterProps {
               mindsetstudy@yandex.ru
             </a>
             <a href="tel:+78005553535" className="footer__link">
-              +7 (800) 555-35-35
+              +7 (926) 192-63-09
             </a>
           </div>
 
           <div className="footer__social">
             <h3 className="footer__subtitle">Ссылки на наши соцсети:</h3>
             <div className="footer__social-links">
-              <a href="#" className="footer__social-link"></a>
-              <a href="#" className="footer__social-link"></a>
-              <a href="#" className="footer__social-link"></a>
-              <a href="#" className="footer__social-link"></a>
+              <a href="https://vk.com/schoolmindset" className="footer__social-link"></a>
+              <a href="https://t.me/onlineschoolmindset" className="footer__social-link-tg"></a>
+              {/* <a href="#" className="footer__social-link"></a> */}
+              {/* <a href="#" className="footer__social-link"></a> */}
             </div>
           </div>
         </div>

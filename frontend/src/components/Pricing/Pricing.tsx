@@ -25,50 +25,51 @@ interface PricingProps {
 const pricingData: PricingPackage[] = [
   {
     id: "basic",
-    title: "ПАКЕТ << БАЗОВЫЙ >>",
+    title: "ПАКЕТ << ОДНОПРЕДМЕТНЫЙ >>",
     color: "orange",
     tiers: [
       {
         title: "Малый",
-        price: 7590,
+        price: 6990,
         duration: "1 месяц занятий",
       },
       {
         title: "Средний",
-        price: 20990,
-        oldPrice: 22770,
+        price: 19990,
+        oldPrice: 20990,
         duration: "3 месяца занятий",
         featured: true,
       },
       {
         title: "Большой",
-        price: 39990,
-        oldPrice: 45540,
+        price: 38990,
+        oldPrice: 41990,
         duration: "6 месяцев занятий",
       },
     ],
   },
   {
     id: "advanced",
-    title: "ПАКЕТ << ПРОДВИНУТЫЙ >>",
+    title: "ПАКЕТ << ДВУПРЕДМЕТНЫЙ >>",
     color: "blue",
     tiers: [
       {
         title: "Малый",
-        price: 7590,
+        price: 12990,
+        oldPrice:13990,
         duration: "1 месяц занятий",
       },
       {
         title: "Средний",
-        price: 20990,
-        oldPrice: 22770,
+        price: 36990,
+        oldPrice: 39990,
         duration: "3 месяца занятий",
         featured: true,
       },
       {
         title: "Большой",
-        price: 39990,
-        oldPrice: 45540,
+        price: 71990,
+        oldPrice: 77990,
         duration: "6 месяцев занятий",
       },
     ],

@@ -76,10 +76,23 @@
   height: 30px;
   border-radius: 50%;
   background-color: white;
+  background-image: url('/vk-logo1.png');
+  transition: opacity 0.2s ease;
+}
+
+.footer__social-link-tg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url('/telegram.png');
   transition: opacity 0.2s ease;
 }
 
 .footer__social-link:hover {
+  opacity: 0.8;
+}
+.footer__social-link-tg:hover {
   opacity: 0.8;
 }
 
@@ -208,8 +221,12 @@
   }
   
   .footer__social-link {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+  }
+  .footer__social-link-tg {
+    width: 30px;
+    height: 30px;
   }
   
   .footer__bottom {

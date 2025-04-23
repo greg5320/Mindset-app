@@ -11,7 +11,7 @@ export default function RootLayout({
       <head>
         <title>Mindset</title>
         <meta name="description" content="Онлайн-школа Mindset" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/frontend/src/app/favicon.ico" />
       </head>
       <body>{children}</body>
     </html>
