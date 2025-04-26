@@ -21,7 +21,7 @@ export default function ProgramPage() {
       <Header />
       <main className="program-page">
         <div className="program-container">
-          <h1 className="program-title">ПРОГРАММА ОБУЧЕНИЯ</h1>
+          <h1 className="program-title">ОБРАЗОВАТЕЛЬНАЯ ПРОГРАММА</h1>
 
           {loading ? (
             <div className="program-loading">
@@ -33,7 +33,7 @@ export default function ProgramPage() {
               <iframe
                 src="/program.pdf#toolbar=0&navpanes=0&scrollbar=0"
                 className="pdf-viewer"
-                title="Программа обучения"
+                title="Образовательная программа"
               />
             </div>
           )}

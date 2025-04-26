@@ -154,7 +154,7 @@ const Header = () => {
               Контакты
             </a>
             <a href="/program" onClick={closeMenu} className={isProgramPage ? "active" : ""}>
-              Программа обучения
+              Образовательная программа
             </a>
           </nav>
           <button className="mobile-menu__cta" onClick={handleTrialClick}>
