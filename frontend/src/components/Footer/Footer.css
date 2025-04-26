@@ -42,9 +42,25 @@
   margin-bottom: 8px;
 }
 
-.footer__link
-.footer__link-mail
 .footer__link-phone {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer__link-mail {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer__link {
   color: white;
   text-decoration: none;
   font-size: 20px;
@@ -78,6 +94,12 @@
 .footer__link:hover
 .footer__link-mail:hover
 .footer__link-phone:hover {
+  opacity: 0.8;
+}
+.footer__link-mail:hover {
+  opacity: 0.8;
+}
+.footer__link-link:hover {
   opacity: 0.8;
 }
 
