@@ -22,10 +22,10 @@ interface FooterProps {
           <div className="footer__contacts">
             <h3 className="footer__subtitle">Связаться с нами:</h3>
             <div className="footer__social-links"></div>
-            <a href="mailto:mindsetstudy@yandex.ru" className="footer__link">
+            <a href="mailto:mindsetstudy@yandex.ru" className="footer__link-mail">
               mindsetstudy@yandex.ru
             </a>
-            <a href="tel:+78005553535" className="footer__link">
+            <a href="tel:+78005553535" className="footer__link-phone">
               +7 (926) 192-63-09
             </a>
           </div>
