@@ -115,7 +115,7 @@ const Header = () => {
                 Контакты
               </a>
               <a href="/program" className={`nav__link ${isProgramPage ? "active" : ""}`}>
-                Программа обучения
+                Образовательная программа
               </a>
             </nav>
 
