@@ -39,7 +39,6 @@ export default function Home() {
       <Courses id="courses" onTrialClick={handleTrialClick} onMoreClick={handleMoreClick} />
       <LearningProcess id="learning-process" />
       <Pricing id="prices" openPackageId={openPackageId} />
-      <License />
       <DataForm id="data-form"/>
       <Footer id="footer" />
     </main>
