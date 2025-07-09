@@ -11,14 +11,14 @@ export default function ProgramPage() {
   // список файлов
   const pdfFiles = [
     "License.pdf",
-    "program.pdf",
-    // "Doc3.pdf",
-    // "Doc4.pdf",
-    // "Doc5.pdf",
-    // "Doc6.pdf",
-    // "Doc7.pdf",
-    // "Doc8.pdf",
-    // "Doc9.pdf",
+    "1.pdf",
+    "2.pdf",
+    "3.pdf",
+    "4.pdf",
+    "5.pdf",
+    "6.pdf",
+    "7.pdf",
+    "8.pdf",
   ];
 
   useEffect(() => {
