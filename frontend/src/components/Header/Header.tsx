@@ -10,29 +10,37 @@ const Header = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    const sections = {
-      hero: document.getElementById("hero"),
-      courses: document.getElementById("courses"),
-      "learning-process": document.getElementById("learning-process"),
-      prices: document.getElementById("prices"),
-      footer: document.getElementById("footer"),
-      "data-form": document.getElementById("data-form"),
-    }
+    const sectionOrder = [
+      "hero",
+      "courses",
+      "learning-process",
+      "prices",
+      "data-form",
+      "footer"
+    ];
+    const sections = sectionOrder.map((key) => ({
+      key,
+      el: document.getElementById(key)
+    }));
 
     const handleScroll = () => {
       if (pathname !== "/") {
         return
       }
 
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        setActiveSection("footer");
+        return;
+      }
+
       let currentSection = null
 
-      for (const [key, section] of Object.entries(sections)) {
-        if (section) {
-          const rect = section.getBoundingClientRect()
-          if (rect.top < window.innerHeight && rect.bottom > 100) {
-            currentSection = key
-            break
-          }
+      for (const { key, el: section } of sections) {
+        if (!section) continue;
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 120) {
+          currentSection = key;
+          break;
         }
       }
 
@@ -68,6 +76,7 @@ const Header = () => {
   }
 
   const isProgramPage = pathname === "/program"
+  const isInfoPage = pathname === "/info"
 
   return (
     <>
@@ -114,8 +123,8 @@ const Header = () => {
               >
                 Контакты
               </a>
-              <a href="/program" className={`nav__link ${isProgramPage ? "active" : ""}`}>
-                Образовательная программа
+              <a href="/info" className={`nav__link ${isInfoPage ? "active" : ""}`}>
+                Сведения об организации
               </a>
             </nav>
 
@@ -153,8 +162,8 @@ const Header = () => {
             <a href="/#footer" onClick={closeMenu}>
               Контакты
             </a>
-            <a href="/program" onClick={closeMenu} className={isProgramPage ? "active" : ""}>
-              Образовательная программа
+            <a href="/info" onClick={closeMenu} className={isInfoPage ? "active" : ""}>
+              Сведения об организации
             </a>
           </nav>
           <button className="mobile-menu__cta" onClick={handleTrialClick}>

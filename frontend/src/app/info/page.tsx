@@ -1,0 +1,59 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
+import "./program.css";
+
+export default function ProgramPage() {
+  const [loading, setLoading] = useState(true);
+
+  // список файлов
+  const pdfFiles = [
+    "License.pdf",
+    "program.pdf",
+    // "Doc3.pdf",
+    // "Doc4.pdf",
+    // "Doc5.pdf",
+    // "Doc6.pdf",
+    // "Doc7.pdf",
+    // "Doc8.pdf",
+    // "Doc9.pdf",
+  ];
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <main className="program-page">
+        <div className="program-container">
+          <h1 className="program-title">СВЕДЕНИЯ ОБ ОРГАНИЗАЦИИ</h1>
+
+          {loading ? (
+            <div className="program-loading">
+              <div className="spinner" />
+              <p>Загрузка...</p>
+            </div>
+          ) : (
+            <div className="pdf-list">
+              {pdfFiles.map((file) => (
+                <div key={file} className="pdf-container">
+                  <iframe
+                    src={`/${file}#toolbar=0&navpanes=0&scrollbar=0`}
+                    className="pdf-viewer"
+                    title={file}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+}
