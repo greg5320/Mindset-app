@@ -32,6 +32,7 @@ export default function ProgramPage() {
       <main className="program-page">
         <div className="program-container">
           <h1 className="program-title">СВЕДЕНИЯ ОБ ОРГАНИЗАЦИИ</h1>
+          <h2 className="program-title">Лицензия</h2>
 
           {loading ? (
             <div className="program-loading">
