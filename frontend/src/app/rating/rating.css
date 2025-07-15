@@ -45,6 +45,14 @@
     letter-spacing: 2px;
   }
   
+  .table th:nth-child(2),
+    .table td:nth-child(2) {
+  width: 80px;
+  max-width: 120px;
+  /* дополнительно центрируем содержимое */
+  text-align: center;
+    }
+
   .tableContainer {
     background: white;
     flex: 1;
@@ -116,7 +124,7 @@
   
     .table th,
     .table td {
-      padding: 16px;
+      padding: px;
       font-size: 15px;
     }
   }
