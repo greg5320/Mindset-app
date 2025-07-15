@@ -25,7 +25,7 @@ interface FooterProps {
             <a href="mailto:mindsetstudy@yandex.ru" className="footer__link-mail">
               mindsetstudy@yandex.ru
             </a>
-            <a href="tel:+78005553535" className="footer__link-phone">
+            <a href="tel:+79261926309" className="footer__link-phone">
               +7 (926) 192-63-09
             </a>
           </div>

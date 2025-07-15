@@ -172,15 +172,17 @@ const Header = () => {
           <div className="mobile-menu__contacts">
             <h3>Связаться с нами:</h3>
             <a href="mailto:mindsetstudy@yandex.ru">mindsetstudy@yandex.ru</a>
-            <a href="tel:+78005553535">+7 (800) 555-35-35</a>
+            <a href="tel:+79261926309">+7 (926) 192-63-09</a>
           </div>
           <div className="mobile-menu__social">
             <h3>Ссылки на наши соцсети:</h3>
             <div className="mobile-menu__social-links">
+            <a href="https://vk.com/schoolmindset" className="footer__social-link"></a>
+            <a href="https://t.me/onlineschoolmindset" className="footer__social-link-tg"></a>
+              {/* <a href="#" className="mobile-menu__social-link"></a>
               <a href="#" className="mobile-menu__social-link"></a>
               <a href="#" className="mobile-menu__social-link"></a>
-              <a href="#" className="mobile-menu__social-link"></a>
-              <a href="#" className="mobile-menu__social-link"></a>
+              <a href="#" className="mobile-menu__social-link"></a> */}
             </div>
           </div>
         </div>
