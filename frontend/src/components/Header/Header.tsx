@@ -77,6 +77,7 @@ const Header = () => {
 
   const isProgramPage = pathname === "/program"
   const isInfoPage = pathname === "/info"
+  const isRatingPage = pathname === "/rating"
 
   return (
     <>
@@ -123,6 +124,9 @@ const Header = () => {
               >
                 Контакты
               </a>
+              <a href="/rating" className={`nav__link ${isRatingPage ? "active" : ""}`}>
+                Рейтинг
+              </a>
               <a href="/info" className={`nav__link ${isInfoPage ? "active" : ""}`}>
                 Сведения об организации
               </a>
@@ -162,6 +166,9 @@ const Header = () => {
             <a href="/#footer" onClick={closeMenu}>
               Контакты
             </a>
+            <a href="/rating" onClick={closeMenu} className={isRatingPage ? "active" : ""}>
+                Рейтинг
+              </a>
             <a href="/info" onClick={closeMenu} className={isInfoPage ? "active" : ""}>
               Сведения об организации
             </a>

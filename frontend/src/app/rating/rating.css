@@ -1,0 +1,173 @@
+.main {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+    background: #3f51b5;
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .titleSection {
+    background: #3f51b5;
+    position: relative;
+    padding: 20px 0;
+    /* margin-bottom: 60px; */
+    margin-top: 60px;
+  }
+  
+  .titleSection::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: #F58F2A;
+  }
+  
+  .titleSection::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: #F58F2A;
+  }
+  
+  .title {
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    color: white;
+    letter-spacing: 2px;
+  }
+  
+  .tableContainer {
+    background: white;
+    flex: 1;
+    padding: 60px 0;
+    position: relative;
+    margin-bottom: 120px;
+  }
+  
+  .tableContainer::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: #F58F2A;
+  }
+  
+  .tableWrapper {
+    overflow-x: auto;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th,
+  .table td {
+    border: 2px solid #b8b8b8;
+    padding: 20px;
+    text-align: left;
+    font-size: 16px;
+  }
+  
+  .table th {
+    background: #f5f5f5;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .table td {
+    background: white;
+    color: #333;
+  }
+  
+  .table tbody tr:hover {
+    background: #f9f9f9;
+  }
+  
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .titleSection {
+      padding: 20px 0;
+      /* margin-bottom: 50px; */
+    }
+  
+    .title {
+      font-size: 40px;
+    }
+  
+    .tableWrapper {
+      padding: 0 24px;
+    }
+  
+    .table th,
+    .table td {
+      padding: 16px;
+      font-size: 15px;
+    }
+  }
+  
+  @media (max-width: 768px) and (min-width: 481px) {
+    .titleSection {
+      padding: 20px 0;
+      /* margin-bottom: 40px; */
+    }
+  
+    .title {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  
+    .tableWrapper {
+      padding: 0 20px;
+    }
+  
+    .table th,
+    .table td {
+      padding: 12px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .titleSection {
+      padding: 20px 0;
+      /* margin-bottom: 30px; */
+    }
+  
+    .title {
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+  
+    .tableWrapper {
+      margin: 0 -16px;
+      padding: 0 16px;
+    }
+  
+    .table th,
+    .table td {
+      padding: 8px;
+      font-size: 12px;
+    }
+  
+    .table th,
+    .table td {
+      border: 1px solid #b8b8b8;
+    }
+  }
+  
