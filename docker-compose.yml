@@ -44,6 +44,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        GOOGLE_SHEETS_API_KEY: ${GOOGLE_SHEETS_API_KEY}
+        SHEET_ID:               ${SHEET_ID}
+        RANGE:                  ${RANGE}
     expose:
       - "3000"
     environment:

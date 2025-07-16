@@ -1,6 +1,15 @@
 # Базовый образ Node.js
 FROM node:18-alpine AS base
 
+ARG GOOGLE_SHEETS_API_KEY
+ARG SHEET_ID
+ARG RANGE
+
+# 2) Переводим их в ENV, чтобы в процессе сборки и в runtime они были доступны через process.env
+ENV GOOGLE_SHEETS_API_KEY=$GOOGLE_SHEETS_API_KEY \
+    SHEET_ID=$SHEET_ID \
+    RANGE=$RANGE
+    
 # Установка зависимостей для сборки
 FROM base AS deps
 WORKDIR /app
