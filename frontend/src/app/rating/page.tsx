@@ -87,8 +87,8 @@ export default async function RatingPage() {
                             src={src}
                             alt="Медаль"
                             style={{
-                              maxWidth: 60,
-                              maxHeight: 60,
+                              maxWidth: 120,
+                              maxHeight: 120,
                               objectFit: "contain",
                             }}
                           />
