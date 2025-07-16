@@ -49,6 +49,9 @@ services:
     environment:
       NODE_ENV: production
       BACKEND_URL: /api
+      GOOGLE_SHEETS_API_KEY: ${GOOGLE_SHEETS_API_KEY}
+      SHEET_ID:               ${SHEET_ID}
+      RANGE:                  ${RANGE}
     healthcheck:
       test: ["CMD-SHELL", "nc -z localhost 3000"]
       interval: 10s
