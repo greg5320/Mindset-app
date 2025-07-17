@@ -173,9 +173,9 @@ const Header = () => {
               Сведения об организации
             </a>
           </nav>
-          <button className="mobile-menu__cta" onClick={handleTrialClick}>
+          <a href="/" className="mobile-menu__cta">
             ПРОБНОЕ ЗАНЯТИЕ
-          </button>
+          </a>
           <div className="mobile-menu__contacts">
             <h3>Связаться с нами:</h3>
             <a href="mailto:mindsetstudy@yandex.ru">mindsetstudy@yandex.ru</a>

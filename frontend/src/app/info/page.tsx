@@ -11,14 +11,10 @@ export default function ProgramPage() {
   // список файлов
   const pdfFiles = [
     "License.pdf",
-    "1.pdf",
-    "2.pdf",
-    "3.pdf",
-    "4.pdf",
-    "5.pdf",
-    "6.pdf",
-    "7.pdf",
-    "8.pdf",
+    "2. Положение об ОПД работников.pdf",
+    "4. Положение об оценке вреда.pdf",
+    "6. согласие на ОПД.pdf",
+    "7. Политика в отношении ОПД.pdf",
   ];
 
   useEffect(() => {
