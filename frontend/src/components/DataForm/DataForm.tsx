@@ -1,8 +1,6 @@
 "use client"
 import { useState, type FC, type FormEvent } from "react"
-import type React from "react"
 import axios from "axios"
-
 import "./DataForm.css"
 
 interface FormData {
@@ -10,10 +8,13 @@ interface FormData {
   last_name: string
   patronymic: string
   phone_number: string
+  agreement: boolean
 }
 
+type FormErrors = Partial<Record<keyof FormData, string>>
+
 interface DataFormProps {
-  id?: string;
+  id?: string
 }
 
 const DataForm: FC<DataFormProps> = ({ id }) => {
@@ -22,28 +23,22 @@ const DataForm: FC<DataFormProps> = ({ id }) => {
     last_name: "",
     patronymic: "",
     phone_number: "",
+    agreement: false,
   })
-
-  const [errors, setErrors] = useState<Partial<FormData>>({})
+  const [errors, setErrors] = useState<FormErrors>({})
   const [isLoading, setIsLoading] = useState(false)
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<FormData> = {}
+    const newErrors: FormErrors = {}
 
-    if (!formData.last_name.trim()) {
-      newErrors.last_name = "Введите фамилию"
-    }
-    if (!formData.first_name.trim()) {
-      newErrors.first_name = "Введите имя"
-    }
-    if (!formData.patronymic.trim()) {
-      newErrors.patronymic = "Введите отчество"
-    }
-    if (!formData.phone_number.trim()) {
-      newErrors.phone_number = "Введите номер телефона"
-    } else if (!/^\+?[78]\d{10}$/.test(formData.phone_number.replace(/\D/g, ""))) {
-      newErrors.phone_number = "Введите корректный номер телефона"
-    }
+    if (!formData.last_name.trim()) newErrors.last_name = "Введите фамилию"
+    if (!formData.first_name.trim()) newErrors.first_name = "Введите имя"
+    if (!formData.patronymic.trim()) newErrors.patronymic = "Введите отчество"
+    const rawPhone = formData.phone_number.replace(/\D/g, "")
+    if (!rawPhone) newErrors.phone_number = "Введите номер телефона"
+    else if (!/^[78]\d{10}$/.test(rawPhone)) newErrors.phone_number = "Введите корректный номер телефона"
+
+    if (!formData.agreement) newErrors.agreement = "Необходимо согласиться с обработкой персональных данных"
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -52,63 +47,37 @@ const DataForm: FC<DataFormProps> = ({ id }) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (!validateForm()) return
-  
     setIsLoading(true)
     try {
-      const rawPhoneNumber = formData.phone_number.replace(/\D/g, "") 
-  
-      const response = await axios.post("/api/students", {
-        last_name: formData.last_name,
-        first_name: formData.first_name,
-        patronymic: formData.patronymic,
-        phone_number: `+${rawPhoneNumber}`, 
-      }, {
-        headers: { "Content-Type": "application/json" },
-      })
-  
-      console.log("Ответ сервера:", response.data)
+      const raw = formData.phone_number.replace(/\D/g, "")
+      await axios.post(
+        "/api/students",
+        { ...formData, phone_number: `+${raw}` },
+        { headers: { "Content-Type": "application/json" } }
+      )
       alert("Заявка успешно отправлена!")
-  
-      setFormData({ first_name: "", last_name: "", patronymic: "", phone_number: "" })
+      setFormData({ first_name: "", last_name: "", patronymic: "", phone_number: "", agreement: false })
+      setErrors({})
     } catch (error: any) {
-      if (error.response) {
-        console.error("Ошибка от сервера:", error.response.data)
-        alert(`Ошибка: ${JSON.stringify(error.response.data)}`)
-      } else {
-        console.error("Ошибка сети:", error.message)
-        alert("Ошибка сети, попробуйте позже.")
-      }
+      const msg = error.response?.data || error.message
+      alert(`Ошибка: ${JSON.stringify(msg)}`)
     } finally {
       setIsLoading(false)
     }
   }
 
   const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-  let value = e.target.value.replace(/\D/g, "") 
-
-  if (e.target.value === "" || value === "") {
-    setFormData({ ...formData, phone_number: "" }) 
-    return
+    let value = e.target.value.replace(/\D/g, "")
+    if (!value) { setFormData({ ...formData, phone_number: "" }); return }
+    if (value.length === 1 && value.startsWith("8")) value = "7"
+    if (value.length > 11) value = value.slice(0, 11)
+    let formatted = "+7"
+    if (value.length > 1) formatted += ` (${value.slice(1,4)}`
+    if (value.length > 4) formatted += `) ${value.slice(4,7)}`
+    if (value.length > 7) formatted += `-${value.slice(7,9)}`
+    if (value.length > 9) formatted += `-${value.slice(9,11)}`
+    setFormData({ ...formData, phone_number: formatted })
   }
-
-  if (value.length === 1 && value.startsWith("8")) {
-    value = "7"
-  }
-
-  if (value.length > 11) {
-    value = value.slice(0, 11) 
-  }
-
-  let formattedValue = "+7"
-  if (value.length > 1) formattedValue += ` (${value.slice(1, 4)}`
-  if (value.length > 4) formattedValue += `) ${value.slice(4, 7)}`
-  if (value.length > 7) formattedValue += `-${value.slice(7, 9)}`
-  if (value.length > 9) formattedValue += `-${value.slice(9, 11)}`
-
-  setFormData({ ...formData, phone_number: formattedValue })
-}
-
 
   return (
     <section className="data-form" id={id}>
@@ -154,6 +123,18 @@ const DataForm: FC<DataFormProps> = ({ id }) => {
               className={errors.phone_number ? "error" : ""}
             />
             {errors.phone_number && <span className="error-message">{errors.phone_number}</span>}
+          </div>
+          <div className="form-group checkbox-group">
+            <input
+              type="checkbox"
+              id="agreement"
+              checked={formData.agreement}
+              onChange={(e) => setFormData({ ...formData, agreement: e.target.checked })}
+            />
+            <label htmlFor="agreement">
+              Я соглашаюсь на обработку <a href="/info" className="link">персональных данных</a>
+            </label>
+            {errors.agreement && <span className="error-message">{errors.agreement}</span>}
           </div>
           <button type="submit" className="submit-button" disabled={isLoading}>
             {isLoading ? "Отправка..." : "ОТПРАВИТЬ ЗАЯВКУ"}

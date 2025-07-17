@@ -71,6 +71,38 @@
   background-color: var(--orange-hover);
 }
 
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.checkbox-group input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  margin-left: 5px; 
+}
+
+.checkbox-group .link {
+  color: var(--blue-primary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--blue-primary);
+}
+
+.checkbox-group .link:hover {
+  opacity: 0.8;
+}
+
+.checkbox-group .error-message {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  color: #ff4444;
+  font-size: 12px;
+}
+
 @media (max-width: 1024px) {
   .data-form {
     padding: 60px 32px;
