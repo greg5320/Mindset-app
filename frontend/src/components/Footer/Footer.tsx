@@ -45,7 +45,7 @@ interface FooterProps {
           <div className="footer__legal">
           <p className="footer__legal-text">ИНН 772841744929</p>
             
-            <a href="/info" className="footer__legal-link">
+            <a href="/info#policy-opd" className="footer__legal-link">
               Политика конфиденциальности
             </a>
             <p className="footer__legal-text">ОГРНИП 324774600735749</p>

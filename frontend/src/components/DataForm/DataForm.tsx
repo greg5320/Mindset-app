@@ -132,7 +132,7 @@ const DataForm: FC<DataFormProps> = ({ id }) => {
               onChange={(e) => setFormData({ ...formData, agreement: e.target.checked })}
             />
             <label htmlFor="agreement">
-              Я соглашаюсь на обработку <a href="/info" className="link">персональных данных</a>
+              Я соглашаюсь на обработку <a href="/info#policy-opd" className="link">персональных данных</a>
             </label>
             {errors.agreement && <span className="error-message">{errors.agreement}</span>}
           </div>
