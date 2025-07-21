@@ -21,9 +21,9 @@ export default function Home() {
   }, [openPackageId])
 
   const handleTrialClick = () => {
-    const pricingSection = document.getElementById("pricing")
+    const dataFormSection = document.getElementById("data-form")
     setOpenPackageId(undefined)
-    pricingSection?.scrollIntoView({ behavior: "smooth" })
+    dataFormSection?.scrollIntoView({ behavior: "smooth" })
   }
 
   const handleMoreClick = (packageId: string) => {

@@ -66,12 +66,14 @@ const Header = () => {
   }
 
   const handleTrialClick = () => {
-    const dataFormSection = document.getElementById("data-form")
-    if (dataFormSection) {
-      dataFormSection.scrollIntoView({ behavior: "smooth" })
-    }
-    if (isMenuOpen) {
-      closeMenu()
+    closeMenu()
+    if (pathname !== "/") {
+      window.location.href = "/#data-form"
+    } else {
+      const dataFormSection = document.getElementById("data-form")
+      if (dataFormSection) {
+        dataFormSection.scrollIntoView({ behavior: "smooth" })
+      }
     }
   }
 
@@ -173,9 +175,9 @@ const Header = () => {
               Сведения об организации
             </a>
           </nav>
-          <a href="/" className="mobile-menu__cta">
-            ПРОБНОЕ ЗАНЯТИЕ
-          </a>
+          <button onClick={handleTrialClick}>
+              ПРОБНОЕ ЗАНЯТИЕ
+            </button>
           <div className="mobile-menu__contacts">
             <h3>Связаться с нами:</h3>
             <a href="mailto:mindsetstudy@yandex.ru">mindsetstudy@yandex.ru</a>
