@@ -10,7 +10,7 @@
   }
   
   .header__container {
-    max-width: 1280px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 32px;
     height: 100%;
@@ -317,6 +317,16 @@
     .header__cta {
       padding: 10px 20px;
       font-size: 14px;
+    }
+  }
+
+  @media (max-width: 876px) and (min-width: 769px){
+    .nav__link {
+      font-size: 12px;
+    }
+    .header__cta {
+      padding: 8px 10px;
+      font-size: 12px;
     }
   }
   
