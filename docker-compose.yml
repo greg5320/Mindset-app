@@ -27,7 +27,9 @@ services:
     expose:
       - "8000"
     environment:
-      DATABASE_URL: postgres://postgres:password@db:5432/mindset_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     depends_on:
       db:
         condition: service_healthy
