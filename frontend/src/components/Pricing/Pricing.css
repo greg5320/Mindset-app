@@ -145,6 +145,10 @@
     color: white;
   }
   
+  #basic .pricing-cards .pricing-card:first-child .pricing-card__duration {
+    margin-top: 46px;
+  }
+
   .pricing-card--orange .pricing-card__button:hover {
     background-color: #e8bb8e;
   }
@@ -172,11 +176,16 @@
     .pricing {
       padding: 60px 20px;
     }
-  
+    .pricing-card__price-wrapper {
+      margin-bottom: 16px;
+      min-height: 140px; 
+    }
+    #basic .pricing-cards .pricing-card:first-child .pricing-card__duration {
+      margin-top: 24px;
+    }
     .pricing__container {
       max-width: 100%;
     }
-  
     .pricing__title {
       font-size: 32px;
       margin-bottom: 32px;
@@ -245,7 +254,13 @@
     .pricing__container {
       max-width: 100%;
     }
-  
+    .pricing-card__price-wrapper {
+      margin-bottom: 16px;
+      min-height: 100px; 
+    }
+    #basic .pricing-cards .pricing-card:first-child .pricing-card__duration {
+      margin-top: 21px;
+    }
     .pricing__title {
       font-size: 28px;
       margin-bottom: 24px;
@@ -313,7 +328,13 @@
     .pricing {
       padding: 16px; 
     }
-  
+    .pricing-card__price-wrapper {
+      margin-bottom: 16px;
+      min-height: 60px; 
+    }
+    #basic .pricing-cards .pricing-card:first-child .pricing-card__duration {
+      margin-top: 15.5px;
+    }
     .pricing__title {
       font-size: 16px;
       margin-bottom: 16px;
