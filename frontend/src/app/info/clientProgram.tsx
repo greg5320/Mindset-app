@@ -17,6 +17,7 @@ export default function ClientProgram() {
     '4. Положение об оценке вреда.pdf',
     '6. согласие на ОПД.pdf',
     '7. Политика в отношении ОПД.pdf',
+    'Договор ИП Мандрик оферта.pdf'
   ];
 
   useEffect(() => {
