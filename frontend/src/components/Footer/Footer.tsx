@@ -49,8 +49,11 @@ interface FooterProps {
               Политика конфиденциальности
             </a>
             <p className="footer__legal-text">ОГРНИП 324774600735749</p>
-            <a  className="footer__legal-link">
+            <a  className="footer__legal-text">
             ИП Мандрик Е.А.
+            </a>
+            <a href="/info#requisites" className="footer__legal-link">
+              Реквизиты
             </a>
           </div>
         </div>

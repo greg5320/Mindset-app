@@ -17,7 +17,8 @@ export default function ClientProgram() {
     '4. Положение об оценке вреда.pdf',
     '6. согласие на ОПД.pdf',
     '7. Политика в отношении ОПД.pdf',
-    'Договор ИП Мандрик оферта.pdf'
+    'Договор ИП Мандрик оферта.pdf',
+    'Реквизиты.pdf',
   ];
 
   useEffect(() => {
@@ -53,7 +54,13 @@ export default function ClientProgram() {
           ) : (
             <div className="pdf-list">
               {pdfFiles.map((file, idx) => {
-                const props = idx === 4 ? { id: 'policy-opd' } : {};
+                let props = {};
+
+                if (idx === 4) {
+                  props = { id: 'policy-opd' };
+                } else if (idx === 6) {
+                  props = { id: 'requisites' };
+                }
                 return (
                   <div key={file} className="pdf-container" {...props}>
                     <iframe
