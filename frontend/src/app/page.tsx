@@ -33,6 +33,7 @@ export default function Home() {
 
   return (
     <main>
+      
       <Header />
       <Hero id="hero" />
       <Courses id="courses" onTrialClick={handleTrialClick} onMoreClick={handleMoreClick} />
