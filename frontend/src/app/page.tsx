@@ -6,7 +6,6 @@ import Hero from "@/components/Hero/Hero"
 import Courses from "@/components/Courses/Courses"
 import LearningProcess from "@/components/LearningProcess/LearningProcess"
 import Pricing from "@/components/Pricing/Pricing"
-import License from "@/components/License/License"
 import DataForm from "@/components/DataForm/DataForm"
 import Footer from "@/components/Footer/Footer"
 

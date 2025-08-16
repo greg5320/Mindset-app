@@ -5,7 +5,7 @@ interface LearningProcessProps {
   id?: string;
 }
 
-const LearningProcess: FC<LearningProcessProps> = ({ id }) => {
+const LearningProcess: FC<LearningProcessProps> = () => {
   return (
     <section className="learning" id="learning-process">
       <div className="learning__container">

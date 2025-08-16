@@ -1,7 +1,7 @@
 "use client"
 import type { FC } from "react"
 import "./Footer.css"
-
+import Link from "next/link"
 interface FooterProps {
     id?: string;
   }
@@ -22,19 +22,19 @@ interface FooterProps {
           <div className="footer__contacts">
             <h3 className="footer__subtitle">Связаться с нами:</h3>
             <div className="footer__social-links"></div>
-            <a href="mailto:mindsetstudy@yandex.ru" className="footer__link-mail">
+            <Link href="mailto:mindsetstudy@yandex.ru" className="footer__link-mail">
               mindsetstudy@yandex.ru
-            </a>
-            <a href="tel:+79261926309" className="footer__link-phone">
+            </Link>
+            <Link href="tel:+79261926309" className="footer__link-phone">
               +7 (926) 192-63-09
-            </a>
+            </Link>
           </div>
 
           <div className="footer__social">
             <h3 className="footer__subtitle">Ссылки на наши соцсети:</h3>
             <div className="footer__social-links">
-              <a href="https://vk.com/schoolmindset" className="footer__social-link"></a>
-              <a href="https://t.me/onlineschoolmindset" className="footer__social-link-tg"></a>
+              <Link href="https://vk.com/schoolmindset" className="footer__social-link"></Link>
+              <Link href="https://t.me/onlineschoolmindset" className="footer__social-link-tg"></Link>
               {/* <a href="#" className="footer__social-link"></a> */}
               {/* <a href="#" className="footer__social-link"></a> */}
             </div>
@@ -45,16 +45,16 @@ interface FooterProps {
           <div className="footer__legal">
           <p className="footer__legal-text">ИНН 772841744929</p>
             
-            <a href="/info#policy-opd" className="footer__legal-link">
+            <Link href="/info#policy-opd" className="footer__legal-link">
               Политика конфиденциальности
-            </a>
+            </Link>
             <p className="footer__legal-text">ОГРНИП 324774600735749</p>
-            <a  className="footer__legal-text">
+            <p  className="footer__legal-text">
             ИП Мандрик Е.А.
-            </a>
-            <a href="/info#requisites" className="footer__legal-link">
+            </p>
+            <Link href="/info#requisites" className="footer__legal-link">
               Реквизиты
-            </a>
+            </Link>
           </div>
         </div>
       </div>

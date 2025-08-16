@@ -2,7 +2,7 @@
 import { useState, type FC, type FormEvent } from "react"
 import axios from "axios"
 import "./DataForm.css"
-
+import Link from "next/link"
 interface FormData {
   first_name: string
   last_name: string
@@ -58,9 +58,15 @@ const DataForm: FC<DataFormProps> = ({ id }) => {
       alert("Заявка успешно отправлена!")
       setFormData({ first_name: "", last_name: "", patronymic: "", phone_number: "", agreement: false })
       setErrors({})
-    } catch (error: any) {
-      const msg = error.response?.data || error.message
-      alert(`Ошибка: ${JSON.stringify(msg)}`)
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data || error.message
+        alert(`Ошибка: ${JSON.stringify(msg)}`)
+      } else if (error instanceof Error) {
+        alert(`Ошибка: ${error.message}`)
+      } else {
+        alert("Неизвестная ошибка")
+      }
     } finally {
       setIsLoading(false)
     }
@@ -132,7 +138,7 @@ const DataForm: FC<DataFormProps> = ({ id }) => {
               onChange={(e) => setFormData({ ...formData, agreement: e.target.checked })}
             />
             <label htmlFor="agreement">
-              Я соглашаюсь на обработку <a href="/info#policy-opd" className="link">персональных данных</a>
+              Я соглашаюсь на обработку <Link href="/info#policy-opd" className="link">персональных данных</Link>
             </label>
             {errors.agreement && <span className="error-message">{errors.agreement}</span>}
           </div>

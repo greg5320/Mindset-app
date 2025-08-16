@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import "./Header.css"
+import Link from "next/link"
 
 const Header = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null)
@@ -77,7 +78,6 @@ const Header = () => {
     }
   }
 
-  const isProgramPage = pathname === "/program"
   const isInfoPage = pathname === "/info"
   const isRatingPage = pathname === "/rating"
 
@@ -86,52 +86,52 @@ const Header = () => {
       <header className="header">
         <div className="header__container">
           <div className="header__content">
-            <a href="/" className="header__logo">
+            <Link href="/" className="header__logo">
               <div className="logo__inner">
                 <picture>
                   <source media="(max-width: 768px)" srcSet="mindsetLogoBig.png" />
                   <img src="mindsetLogoSmall.png" alt="Logo" />
                 </picture>
               </div>
-            </a>
+            </Link>
 
             <nav className="header__nav">
-              <a
+              <Link
                 href="/#courses"
                 className={`nav__link ${pathname === "/" && activeSection === "courses" ? "active" : ""}`}
               >
                 Курсы
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/#learning-process"
                 className={`nav__link ${pathname === "/" && activeSection === "learning-process" ? "active" : ""}`}
               >
                 Процесс обучения
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/#prices"
                 className={`nav__link ${pathname === "/" && activeSection === "prices" ? "active" : ""}`}
               >
                 Услуги и цены
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/#data-form"
                 className={`nav__link ${pathname === "/" && activeSection === "data-form" ? "active" : ""}`}
               >
                 Заявки
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/#footer"
                 className={`nav__link ${pathname === "/" && activeSection === "footer" ? "active" : ""}`}
               >
                 Контакты
-              </a>
-              <a href="/rating" className={`nav__link ${isRatingPage ? "active" : ""}`}>
+              </Link>
+              <Link href="/rating" className={`nav__link ${isRatingPage ? "active" : ""}`}>
                 Рейтинг
-              </a>
-              <a href="/info" className={`nav__link ${isInfoPage ? "active" : ""}`}>
+              </Link>
+              <Link href="/info" className={`nav__link ${isInfoPage ? "active" : ""}`}>
                 Сведения об организации
-              </a>
+              </Link>
             </nav>
 
             <button className="header__cta" onClick={handleTrialClick}>
@@ -153,41 +153,41 @@ const Header = () => {
             <img src="mindsetLogoBig.png" alt="Mindset Logo" />
           </div>
           <nav className="mobile-menu__nav">
-            <a href="/#courses" onClick={closeMenu}>
+            <Link href="/#courses" onClick={closeMenu}>
               Курсы
-            </a>
-            <a href="/#learning-process" onClick={closeMenu}>
+            </Link>
+            <Link href="/#learning-process" onClick={closeMenu}>
               Процесс обучения
-            </a>
-            <a href="/#prices" onClick={closeMenu}>
+            </Link>
+            <Link href="/#prices" onClick={closeMenu}>
               Услуги и цены
-            </a>
-            <a href="/#data-form" onClick={closeMenu}>
+            </Link>
+            <Link href="/#data-form" onClick={closeMenu}>
               Заявки
-            </a>
-            <a href="/#footer" onClick={closeMenu}>
+            </Link>
+            <Link href="/#footer" onClick={closeMenu}>
               Контакты
-            </a>
-            <a href="/rating" onClick={closeMenu} className={isRatingPage ? "active" : ""}>
+            </Link>
+            <Link href="/rating" onClick={closeMenu} className={isRatingPage ? "active" : ""}>
                 Рейтинг
-              </a>
-            <a href="/info" onClick={closeMenu} className={isInfoPage ? "active" : ""}>
+              </Link>
+            <Link href="/info" onClick={closeMenu} className={isInfoPage ? "active" : ""}>
               Сведения об организации
-            </a>
+            </Link>
           </nav>
           <button onClick={handleTrialClick}>
               ПРОБНОЕ ЗАНЯТИЕ
             </button>
           <div className="mobile-menu__contacts">
             <h3>Связаться с нами:</h3>
-            <a href="mailto:mindsetstudy@yandex.ru">mindsetstudy@yandex.ru</a>
-            <a href="tel:+79261926309">+7 (926) 192-63-09</a>
+            <Link href="mailto:mindsetstudy@yandex.ru">mindsetstudy@yandex.ru</Link>
+            <Link href="tel:+79261926309">+7 (926) 192-63-09</Link>
           </div>
           <div className="mobile-menu__social">
             <h3>Ссылки на наши соцсети:</h3>
             <div className="mobile-menu__social-links">
-            <a href="https://vk.com/schoolmindset" className="footer__social-link"></a>
-            <a href="https://t.me/onlineschoolmindset" className="footer__social-link-tg"></a>
+            <Link href="https://vk.com/schoolmindset" className="footer__social-link"></Link>
+            <Link href="https://t.me/onlineschoolmindset" className="footer__social-link-tg"></Link>
               {/* <a href="#" className="mobile-menu__social-link"></a>
               <a href="#" className="mobile-menu__social-link"></a>
               <a href="#" className="mobile-menu__social-link"></a>
